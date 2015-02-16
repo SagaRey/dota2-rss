@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="favicon.png">
+  <title><%= @title || "Sinatra" %></title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/bootstrap-switch.min.css">
+  <style>
+  	body{
+  		background-image: url(img/background.jpg);
+  		background-repeat: no-repeat;
+  		background-attachment:fixed;
+  		background-position:top center;
+  	}
+  </style>
+</head>
+<body>
+  <script src="js/jquery-1.11.2.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/bootstrap-switch.min.js"></script>
+  <%= yield %>
+</body>
+</html>
