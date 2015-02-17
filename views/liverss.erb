@@ -1,23 +1,20 @@
 <%
-	@title = '直播订阅'
-	label = {'douyu' => 'warning','zhanqi' => 'primary','huomao' => 'danger'}
-   	color = {'douyu' => '#f0ad4e','zhanqi' => '#428bca','huomao' => '#d9534f'}
-   	site = {'douyu' => '斗鱼','zhanqi' => '战旗','huomao' => '火猫'}
-   	if Time.now - $dota2_update_time > 30
+	@title = 'Dota2 直播订阅'
+ 	if Time.now - $dota2_update_time > 30
 		$dota2_live_list.clear
 		$dota2_live_list_sort.clear
-   		update_dota2_live_list
+	 		update_dota2_live_list
 		$dota2_update_time = Time.now.getlocal("+08:00")
-   	end
-   	rss_list = session['site.anchor']? session['site.anchor']: []
-   	rss_live_list = []
-   	rss_list.each do |anchor|
-   		rss_live_list.push(anchor) if $dota2_live_list[anchor]
-   	end
-   	rss_live_list.each do |anchor|
-   		rss_list.delete(anchor)
-   		rss_list.unshift(anchor)
-   	end
+ 	end
+ 	rss_list = session['site.anchor'] ? session['site.anchor'] : []
+ 	rss_live_list = []
+ 	rss_list.each do |anchor|
+ 		rss_live_list.push(anchor) if $dota2_live_list[anchor]
+ 	end
+ 	rss_live_list.each do |anchor|
+ 		rss_list.delete(anchor)
+ 		rss_list.unshift(anchor)
+ 	end
 %>
 <div class="container-fluid">
 	<div class="row">
@@ -34,7 +31,7 @@
 							<div class="thumbnail" style="padding:0px; margin-bottom:0px; border:0px">
 						      	<img class="lazy" src="img/img.jpg" data-original="<%= $dota2_live_list[value][:img] %>" style="width:100%; border-top-left-radius:3px; border-top-right-radius:3px">
 						    	<a href="<%= $dota2_live_list[value][:href] %>">
-						    		<span class="label label-<%= label[$dota2_live_list[value][:site]] %>" style="position:absolute; right:15px; top:0px; box-shadow:2px -2px 3px #000000 inset; border-top-left-radius:0px; border-bottom-right-radius:0px">
+						    		<span class="label label-<%= $label[$dota2_live_list[value][:site]] %>" style="position:absolute; right:15px; top:0px; box-shadow:2px -2px 3px #000000 inset; border-top-left-radius:0px; border-bottom-right-radius:0px">
 						    			<h5 style="margin:2px"><%= $dota2_live_list[value][:nnt] %></h5>
 						    			<%= if $dota2_anchor_intro[value]
 						    					'<div class="pull-right" style="text-align:right"><h3>' + $dota2_anchor_intro[value][0] + '</h3><h6>' + $dota2_anchor_intro[value][1].strip.split(',').join('</h6><h6>') + '</h6></div>'
@@ -45,7 +42,7 @@
 						    	</a>
 						    </div>
 					  	</div>
-					  	<div class="panel-footer" style="padding:8px; border-color:<%= color[$dota2_live_list[value][:site]] %>"><h5 style="margin:0px"><%= $dota2_live_list[value][:title][0, 16] %><small class="pull-right" style="color:<%= color[$dota2_live_list[value][:site]] %>"><span class="glyphicon glyphicon-user"></span> <%= $dota2_live_list[value][:view] %></small></h5></div>
+					  	<div class="panel-footer" style="padding:8px; border-color:<%= $color[$dota2_live_list[value][:site]] %>"><h5 style="margin:0px"><%= $dota2_live_list[value][:title][0, 16] %><small class="pull-right" style="color:<%= $color[$dota2_live_list[value][:site]] %>"><span class="glyphicon glyphicon-user"></span> <%= $dota2_live_list[value][:view] %></small></h5></div>
 					</div>
 				</div>
 				<% end %>
@@ -65,8 +62,11 @@
 									<button type="button" class="close" data-toggle="modal" data-target="#myModal" style="font-size:100%"><span class="glyphicon glyphicon-edit"></span></button>
 								</div>
 								<ul class="list-group" style=" max-height:468px; overflow-y:auto">
-									<% rss_list.each do |anchor|  %>
-			    					<li class="list-group-item" style="color:<%= color[anchor.split('.')[0]] %>">
+									<%
+										rss_list.each do |anchor|
+										next unless $dota2_anchor_intro[anchor]
+									%>
+			    					<li class="list-group-item" style="color:<%= $color[anchor.split('.')[0]] %>">
 			    						 <span class="glyphicon glyphicon-<%= rss_live_list.include?(anchor)? 'play': 'stop' %> pull-right"></span><strong><%= $dota2_anchor_intro[anchor][0] %></strong>
 									</li>
 									<% end %>
@@ -96,7 +96,7 @@
       				<% $dota2_anchor_intro.sort.each do |key, value| %>
 	      			<div class="col-md-6 col-lg-4">
 			      		<div class="checkbox">
-						  <label style="color:<%= color[key.split('.')[0]] %>">
+						  <label style="color:<%= $color[key.split('.')[0]] %>">
 						  	<input type="checkbox" name="site.anchor[]" <%= rss_list.include?(key)? 'checked': '' %> value="<%= key %>">
 						    <%= value[0] %>
 						  </label>
