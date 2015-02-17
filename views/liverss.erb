@@ -33,7 +33,7 @@
 				    <div class="panel panel-default" style="border:0px; box-shadow:-3px 3px 9px #000000">
 					  	<div class="panel-body" style="padding:0px">
 							<div class="thumbnail" style="padding:0px; margin-bottom:0px; border:0px">
-						      	<img src="<%= $dota2_live_list[value][:img] %>" style="width:100%; border-top-left-radius:3px; border-top-right-radius:3px">
+						      	<img class="lazy" src="img/img.jpg" data-original="<%= $dota2_live_list[value][:img] %>" style="width:100%; border-top-left-radius:3px; border-top-right-radius:3px">
 						    	<a href="<%= $dota2_live_list[value][:href] %>">
 						    		<span class="label label-<%= label[$dota2_live_list[value][:site]] %>" style="position:absolute; right:15px; top:0px; box-shadow:2px -2px 3px #000000 inset; border-top-left-radius:0px; border-bottom-right-radius:0px">
 						    			<h5 style="margin:2px"><%= $dota2_live_list[value][:nnt] %></h5>
@@ -119,6 +119,7 @@
 		$('.thumbnail img').height($('.thumbnail img').width()/1.8);
 		$('div.pull-right').hide();
 		$("[name='my-checkbox']").bootstrapSwitch();
+		$("img.lazy").lazyload();
 		$('input[name="my-checkbox"]').on('switchChange.bootstrapSwitch', function(){
 			$('.unrss').toggle();
 		});
