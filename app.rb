@@ -38,7 +38,7 @@ def update_dota2_live_list
 			:view => view,
 			:zbName => list.search('span.zbName').text
 		}
-		$dota2_live_list_sort[view.include?('万')? view.to_i*10000: view.to_i] = key
+		$dota2_live_list_sort[view.include?('万')? view.to_i*10000 : view.to_i] = key
 	end
 
 	agent.get(zhanqi_dota2_url).search('//*[@id="hotList"]/li').each do |list|
@@ -54,7 +54,7 @@ def update_dota2_live_list
 			:view => view,
 			:zbName => list.search('a.game-name').text
 		}
-		$dota2_live_list_sort[view.include?('万')? view.to_i*10000: view.to_i] = key
+		$dota2_live_list_sort[view.include?('万')? view.to_i*10000 : view.to_i] = key
 	end
 
 	agent.get(huomao_dota2_url).search('//*[@id="live_list"]/div').each do |list|
@@ -70,7 +70,7 @@ def update_dota2_live_list
 			:view => view,
 			:zbName => list.search('.titleMb').text[0, 5]
 		}
-		$dota2_live_list_sort[view.include?('万')? view.to_i*10000: view.to_i] = key
+		$dota2_live_list_sort[view.include?('万')? view.to_i*10000 : view.to_i] = key
 	end
 end
 
