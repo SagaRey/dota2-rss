@@ -128,18 +128,18 @@
 			$(this).find('span').css("box-shadow", "1px -1px 6px #000000 inset");
 			$(this).find('span').css("border-top-left-radius", "3px");
 			$(this).find('span').css("border-bottom-left-radius", "0px");
-			$(this).find('span').stop().animate({width: $(this).width(), height: $(this).height()}, 200);
-			$(this).find('span').css("opacity", "0.8");
-			$(this).find('h5').hide();
-			$(this).find('div.pull-right').show();
+			$(this).find('h5').fadeOut(150);
+			$(this).find('span').stop().animate({minWidth: $(this).width(), minHeight: $(this).height(), opacity: 0.8}, 200, function(){
+				$(this).find('div.pull-right').fadeIn(50);
+			});
 		}, function(){
 			$(this).find('span').css("box-shadow", "2px -2px 3px #000000 inset");
 			$(this).find('span').css("border-top-left-radius", "0px");
 			$(this).find('span').css("border-bottom-left-radius", "3px");
-			$(this).find('span').stop().animate({width: span_width + 14.4, height: span_height + 6}, 100);
-			$(this).find('span').css("opacity", "1");
-			$(this).find('div.pull-right').hide();
-			$(this).find('h5').show();
+			$(this).find('div.pull-right').fadeOut(20);
+			$(this).find('span').stop().animate({minWidth: 0, minHeight: 0, opacity: 1}, 100, function(){
+				$(this).find('h5').fadeIn(80);
+			});
 		});
 		$('.panel-footer div').click(function(){
 			$('.unrss').toggle();
